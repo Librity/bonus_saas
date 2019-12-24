@@ -3,30 +3,26 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class TeamSchema extends Schema {
+class ProjectSchema extends Schema {
   up() {
-    this.create('teams', table => {
+    this.create('projects', table => {
       table.increments()
-      table.string('name').notNullable()
+      table.string('title').notNullable()
       table
-        .integer('user_id')
+        .integer('team_id')
         .unsigned()
         .notNullable()
         .references('id')
-        .inTable('users')
+        .inTable('teams')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table
-        .string('slug')
-        .notNullable()
-        .unique()
       table.timestamps()
     })
   }
 
   down() {
-    this.drop('teams')
+    this.drop('projects')
   }
 }
 
-module.exports = TeamSchema
+module.exports = ProjectSchema
